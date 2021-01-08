@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { baseURL } from 'config/index';
+import { baseURL } from 'configs/index';
 const AUTH_TOKEN = localStorage.getItem('token');
 const configs = {
-    baseURL,
+    baseURL: "http://localhost:8080",//temp
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ const configs = {
 
 const axiosInstance = axios.create(configs);
 
-axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${AUTH_TOKEN}`;
+//axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${AUTH_TOKEN}`;
 axiosInstance.interceptors.request.use(
     function (config) {
         config.headers = { ...config.headers };

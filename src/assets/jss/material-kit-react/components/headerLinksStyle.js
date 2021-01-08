@@ -37,7 +37,7 @@ const headerLinksStyle = theme => ({
     padding: "0 !important"
   },
   navLink: {
-    color: "inherit",
+    color: "white",
     position: "relative",
     padding: "0.9375rem",
     fontWeight: "400",
@@ -106,6 +106,13 @@ const headerLinksStyle = theme => ({
       textDecoration: "none",
       display: "block",
       padding: "10px 20px"
+    }
+  },
+  navLink2: {
+    "&,&:hover,&:focus": {
+      color: "inherit",
+      textDecoration: "none",
+      display: "block",
     }
   },
   ...tooltip,

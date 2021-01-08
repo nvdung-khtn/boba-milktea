@@ -18,8 +18,10 @@ import Parallax from "components/Parallax/Parallax.js";
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import backgroundImg from "assets/img/landing-bg.jpg"
 
-// Sections for this page
-import ProductSection from "./Sections/ProductSection.js";
+// react router
+import { Outlet } from 'react-router-dom';
+
+
 
 const dashboardRoutes = [];
 
@@ -58,7 +60,7 @@ export default function LandingPage(props) {
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          <ProductSection />
+          <Outlet />
         </div>
       </div>
       <Footer />
