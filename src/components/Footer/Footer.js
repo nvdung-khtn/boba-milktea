@@ -44,7 +44,7 @@ export default function Footer(props) {
                 className={classes.block}
                 target="_blank"
               >
-                About us
+                Về chúng tôi
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
@@ -52,15 +52,7 @@ export default function Footer(props) {
                 className={classes.block}
                 target="_blank"
               >
-                Blog
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                className={classes.block}
-                target="_blank"
-              >
-                Licenses
+                Thông tin chi nhánh
               </a>
             </ListItem>
           </List>

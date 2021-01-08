@@ -13,6 +13,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 // @material-ui/icons
 import { Apps, CloudDownload } from "@material-ui/icons";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LocalBarIcon from '@material-ui/icons/LocalBar';
+import HomeIcon from '@material-ui/icons/Home';
 
 // core components
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
@@ -22,99 +25,81 @@ import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js
 
 const useStyles = makeStyles(styles);
 
-export default function HeaderLinks(props) {
+export default function HeaderLinks({ isSignIn }) {
   const classes = useStyles();
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
-        <CustomDropdown
-          noLiPadding
-          buttonText="Components"
-          buttonProps={{
-            className: classes.navLink,
-            color: "transparent"
-          }}
-          buttonIcon={Apps}
-          dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
-              All components
-            </Link>,
-            <a
-              href="https://creativetimofficial.github.io/material-kit-react/#/documentation?ref=mkr-navbar"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
-              Documentation
-            </a>
-          ]}
-        />
-      </ListItem>
-      <ListItem className={classes.listItem}>
         <Button
-          href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
           color="transparent"
           target="_blank"
           className={classes.navLink}
         >
-          <CloudDownload className={classes.icons} /> Download
+          <Link to="/home" className={classes.navLink2} >
+            <HomeIcon className={classes.icons} /> TRANG CHỦ
+          </Link>
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        {/*<Tooltip title="Delete">
-          <IconButton aria-label="Delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>*/}
-        <Tooltip
-          id="instagram-twitter"
-          title="Follow us on twitter"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
+        <Button
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}
         >
-          <Button
-            href="https://twitter.com/CreativeTim?ref=creativetim"
-            target="_blank"
-            color="transparent"
-            className={classes.navLink}
-          >
-            <i className={classes.socialIcons + " fab fa-twitter"} />
-          </Button>
-        </Tooltip>
+          <Link to="/menu" className={classes.navLink2}>
+            <LocalBarIcon className={classes.icons} /> DANH SÁCH THỨC UỐNG
+          </Link>
+        </Button>
       </ListItem>
-      <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-facebook"
-          title="Follow us on facebook"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
-          <Button
-            color="transparent"
-            href="https://www.facebook.com/CreativeTim?ref=creativetim"
-            target="_blank"
-            className={classes.navLink}
-          >
-            <i className={classes.socialIcons + " fab fa-facebook"} />
-          </Button>
-        </Tooltip>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-tooltip"
-          title="Follow us on instagram"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
-          <Button
-            color="transparent"
-            href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
-            target="_blank"
-            className={classes.navLink}
-          >
-            <i className={classes.socialIcons + " fab fa-instagram"} />
-          </Button>
-        </Tooltip>
-      </ListItem>
+      {isSignIn ?
+        <ListItem className={classes.listItem}>
+          <CustomDropdown
+            noLiPadding
+            buttonText="NGUYỄN VĂN A"
+            buttonProps={{
+              className: classes.navLink,
+              color: "transparent"
+            }}
+            buttonIcon={AccountCircleIcon}
+            dropdownList={[
+              <Link to="/" className={classes.dropdownLink}>
+                Hồ sơ cá nhân
+            </Link>,
+              <Link to="/" className={classes.dropdownLink}>
+                Đăng xuất
+            </Link>
+
+            ]}
+          />
+        </ListItem>
+        :
+        //Not Sign in
+        <>
+          <ListItem className={classes.listItem}>
+            <Button
+              color="transparent"
+              target="_blank"
+              className={classes.navLink}
+            >
+              <Link to="/signin" className={classes.navLink2}>
+                ĐĂNG NHẬP
+          </Link>
+            </Button>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <Button
+              color="transparent"
+              target="_blank"
+              className={classes.navLink}
+            >
+              <Link to="/signup" className={classes.navLink2}>
+                ĐĂNG KÝ
+          </Link>
+            </Button>
+          </ListItem>
+        </>
+
+      }
     </List>
   );
 }

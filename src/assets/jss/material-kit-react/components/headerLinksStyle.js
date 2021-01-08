@@ -108,6 +108,14 @@ const headerLinksStyle = theme => ({
       padding: "10px 20px"
     }
   },
+  navLink2: {
+    color: "inherit",
+    "&,&:hover,&:focus": {
+      color: "inherit",
+      textDecoration: "none",
+      display: "block",
+    }
+  },
   ...tooltip,
   marginRight5: {
     marginRight: "5px"

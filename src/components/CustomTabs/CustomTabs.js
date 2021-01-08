@@ -10,8 +10,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Icon from "@material-ui/core/Icon";
 // core components
-import Card from "src/layouts/GuestLayout/Sections/node_modules/components/Card/Card.js.js.js";
-import CardBody from "src/layouts/GuestLayout/Sections/node_modules/components/Card/CardBody.js.js.js";
+import Card from "components/Card/Card.js";
+import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 
 import styles from "assets/jss/material-kit-react/components/customTabsStyle.js";
