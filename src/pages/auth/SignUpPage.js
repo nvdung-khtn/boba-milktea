@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -18,18 +19,26 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import axiosInstance from "services/api";
-import image from "assets/img/bg7.jpg";
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(styles);
+const useStyles2 = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
 export default function SignUpPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [formData, setFormData] = useState({ username: '', password: '', repeatPassword: '' });
   const [errors, setErrors] = useState('');
   const [isDisableBtn, setIsDisableBtn] = useState(false);
+  const [alert, setAlert] = useState(0);
   const {
     username,
     password,
@@ -40,6 +49,7 @@ export default function SignUpPage(props) {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
+  const classes2 = useStyles2();
   const { ...rest } = props;
 
   const handleInputChange = name => event => {
@@ -67,6 +77,7 @@ export default function SignUpPage(props) {
         formIsValid = false;
         errors["password"] = " tối thiểu 6 ký tự";
       } else if (repeatPassword !== password) {
+        formIsValid = false;
         errors["repeatPassword"] = "không khớp";
       }
     }
@@ -87,13 +98,19 @@ export default function SignUpPage(props) {
   }
 
   const signUp = (username, password) => {
+    //axios.post('http://localhost:8080/sign-up', { username, password })
     axiosInstance
       .post(`/sign-up`, { username, password })
       .then((res) => {
-        const data = res.data;
-        console.log(data)
+        console.log(res.data)
+        if (res.data) {
+          setAlert(1)
+        }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setAlert(2)
+        setIsDisableBtn(false);
+      });
   }
 
   return (
@@ -163,14 +180,28 @@ export default function SignUpPage(props) {
                 }}
               />
             </CardBody>
+            <div>
+              {alert === 2 ?
+                <Alert variant="filled" severity="error">
+                  Tên đăng nhập đã tồn tại, vui lòng chọn tên khác
+                </Alert>
+                : (alert === 1 ? <Alert variant="filled" severity="success">
+                  Đăng ký thành công !
+                </Alert> : '')
+              }
+            </div>
             <CardFooter className={classes.cardFooter}>
               <Button color="primary" size="lg" type="submit" disabled={isDisableBtn}>
                 Đăng ký
-              </Button>
+                </Button>
             </CardFooter>
+            <div style={{ textAlign: "center", marginBottom: "20px" }}>
+              <Link to="/signin">Đăng nhập</Link>
+            </div>
+
           </form>
         </Card>
       </GridItem>
-    </GridContainer>
+    </GridContainer >
   );
 }

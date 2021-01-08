@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Navigate } from 'react-router-dom'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -17,9 +18,10 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-
+import Loading from 'components/Loading';
 import image from "assets/img/bg7.jpg";
 import axiosInstance from "services/api";
+
 
 const useStyles = makeStyles(styles);
 
@@ -27,6 +29,8 @@ export default function SignInPage(props) {
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [isDisableBtn, setIsDisableBtn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false)
   const {
     username,
     password
@@ -45,6 +49,7 @@ export default function SignInPage(props) {
 
   const handleSubmit = (event) => {
     setIsDisableBtn(true);
+    setIsLoading(true)
     event.preventDefault();
     console.log('Email:', username, 'Password: ', password);
     signIn(username, password)
@@ -52,13 +57,17 @@ export default function SignInPage(props) {
 
   const signIn = (username, password) => {
     axiosInstance
-      .post(`/sign-in`, { username, password })
+      .post(`/sign-in`, { email: username, password })
       .then((res) => {
         const data = res.data;
-        console.log(data)
-
+        localStorage.setItem(data, res.data)
+        setIsLoading(false);
+        setRedirect(true);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setIsDisableBtn(false);
+        setIsLoading(false);
+      });
   }
 
 
@@ -108,14 +117,16 @@ export default function SignInPage(props) {
                 }}
               />
             </CardBody>
+
             <CardFooter className={classes.cardFooter}>
-              <Button simple color="primary" size="lg" type="submit">
-                Đăng nhập
-                    </Button>
+              <Button color="primary" size="lg" type="submit">
+                Đăng nhập  {isLoading ? <Loading width="50px" /> : ''}
+              </Button>
             </CardFooter>
           </form>
         </Card>
       </GridItem>
+      {redirect ? <Navigate to='/home' exact /> : ''}
     </GridContainer>
   );
 }

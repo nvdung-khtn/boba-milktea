@@ -1,7 +1,8 @@
 import axios from 'axios';
-require('dotenv').config();
+import { API } from 'configs/index';
+const AUTH_TOKEN = localStorage.getItem('token');
 const configs = {
-    baseURL: "http://localhost:8080",
+    baseURL: process.env.REACT_APP_BASE_URL,
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
@@ -9,9 +10,10 @@ const configs = {
     },
 };
 
-const axiosInstance = axios.create(configs);
+const axiosInstanceToken = axios.create(configs);
 
-axiosInstance.interceptors.request.use(
+axiosInstanceToken.defaults.headers.common['Authorization'] = `Bearer ${AUTH_TOKEN}`;
+axiosInstanceToken.interceptors.request.use(
     function (config) {
         config.headers = { ...config.headers };
         // you can also do other modification in config
@@ -22,7 +24,7 @@ axiosInstance.interceptors.request.use(
     },
 );
 
-axiosInstance.interceptors.response.use(
+axiosInstanceToken.interceptors.response.use(
     function (response) {
         if (response.status === 401) {
             // your failure logic
@@ -34,4 +36,4 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error);
     },
 );
-export default axiosInstance;
+export default axiosInstanceToken;

@@ -28,10 +28,6 @@ function App() {
   if (!authTokens) setTokens(currentTokens);
   const routing = useRoutes(routes());
 
-  axiosInstance.defaults.headers.common[
-    'Authorization'
-  ] = `Bearer ${authTokens}`;
-
   const setUser = (data) => {
     console.log('setUserInfor', data);
     if (data) {

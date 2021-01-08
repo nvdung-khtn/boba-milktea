@@ -10,11 +10,11 @@ const useStyles = makeStyles({
     }
 });
 
-export default function Loading() {
+export default function Loading(props) {
     const classes = useStyles();
     return (
         <div className={classes.screen}>
-            <img className={classes.icon} src={loadingSvg}></img>
+            <img width={props.width} className={classes.icon} src={loadingSvg}></img>
         </div>
     )
 }
