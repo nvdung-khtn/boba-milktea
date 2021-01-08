@@ -62,15 +62,15 @@ export default function Menu() {
             <GridContainer>
               {isLoading ? <Loading /> :
                 menu.map(drink => (
-                  <GridItem key={drink._id} xs={12} sm={12} md={4}>
+                  <GridItem key={drink.id} xs={12} sm={6} md={4}>
                     <Card plain style={{ border: "1px solid gray", paddingTop: "15px" }}>
                       <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                        <img src={drink.image} alt="..." className={imageClasses} />
+                        <img src={drink.image} alt={drink.name} className={imageClasses} />
                       </GridItem>
                       <h4 className={classes.cardTitle}>
                         {drink.name}
                         <br />
-                        <small className={classes.smallTitle}>Model</small>
+                        <small className={classes.smallTitle}>{drink.category.categoryName}</small>
                       </h4>
                       <CardBody>
                         <p className={classes.description}>
@@ -79,14 +79,13 @@ export default function Menu() {
                       </CardBody>
                       <CardFooter className={classes.justifyCenter}>
                         <Button>
-                          Xem chi tiết
-                </Button>
+                          Thêm vào giỏ hàng
+                    </Button>
                       </CardFooter>
                     </Card>
                   </GridItem>
                 ))
               }
-
             </GridContainer>
           </div>
         </div>

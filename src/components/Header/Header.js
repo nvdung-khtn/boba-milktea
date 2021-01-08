@@ -77,7 +77,7 @@ export default function Header(props) {
         <Hidden smDown implementation="css">
           {rightLinks}
         </Hidden>
-        <Hidden mdUp>
+        <Hidden >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -97,7 +97,7 @@ export default function Header(props) {
           }}
           onClose={handleDrawerToggle}
         >
-          <div className={classes.appResponsive}>
+          <div className={classes.appResponsive} onClick={handleDrawerToggle}>
             {leftLinks}
             {rightLinks}
           </div>
