@@ -20,7 +20,7 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-
+import axiosInstance from "services/api";
 import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
@@ -28,6 +28,8 @@ const useStyles = makeStyles(styles);
 export default function SignUpPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [formData, setFormData] = useState({ username: '', password: '', repeatPassword: '' });
+  const [errors, setErrors] = useState('');
+  const [isDisableBtn, setIsDisableBtn] = useState(false);
   const {
     username,
     password,
@@ -44,10 +46,54 @@ export default function SignUpPage(props) {
     setFormData({ ...formData, [name]: event.target.value });
   }
 
+  const handleValidation = (name) => {
+    let errors = {};
+    let formIsValid = true;
+    //Name
+    if (!username) {
+      formIsValid = false;
+      errors["username"] = "không được để trống";
+    } else if (username.length < 6) {
+      errors["username"] = "tối thiểu 6 kí tự";
+    } else if (!username.match(/^[a-zA-Z0-9]+$/)) {
+      formIsValid = false;
+      errors["username"] = "chỉ chứa chữ và số";
+    }
+    if (!password) {
+      formIsValid = false;
+      errors["password"] = "không được để trống";
+    } else {
+      if (password.length < 6) {
+        formIsValid = false;
+        errors["password"] = " tối thiểu 6 ký tự";
+      } else if (repeatPassword !== password) {
+        errors["repeatPassword"] = "không khớp";
+      }
+    }
+    setErrors(errors)
+    return formIsValid;
+  }
+
   const handleSubmit = (event) => {
     console.log(event)
+    setIsDisableBtn(true);
     event.preventDefault();
     console.log('Email:', username, 'Password: ', password, "repeat passord ", repeatPassword);
+    if (handleValidation()) {
+      signUp(username, password);
+    } else {
+      setIsDisableBtn(false);
+    }
+  }
+
+  const signUp = (username, password) => {
+    axiosInstance
+      .post(`/sign-up`, { username, password })
+      .then((res) => {
+        const data = res.data;
+        console.log(data)
+      })
+      .catch((err) => console.error(err));
   }
 
   return (
@@ -56,34 +102,33 @@ export default function SignUpPage(props) {
         <Card className={classes[cardAnimaton]}>
           <form className={classes.form} onSubmit={handleSubmit}>
             <CardHeader color="primary" className={classes.cardHeader}>
-              <h4>Đăng nhập</h4>
+              <h4>Đăng ký</h4>
             </CardHeader>
             <CardBody>
               <CustomInput
-                labelText="Username"
+                labelText={errors['username'] ? ("Tên đăng nhập " + errors['username']) : "Username"}
+                error={errors['username']}
                 id="username"
                 value={username}
                 formControlProps={{
                   fullWidth: true
                 }}
                 inputProps={{
+                  onBlur: handleValidation,
                   onChange: handleInputChange('username'),
                   type: "text",
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <People className={classes.inputIconsColor} />
-                    </InputAdornment>
-                  )
                 }}
               />
               <CustomInput
-                labelText="Password"
+                labelText={errors['password'] ? ("Mật khẩu " + errors['password']) : "Mật khẩu"}
+                error={errors['password']}
                 id="password"
                 value={password}
                 formControlProps={{
                   fullWidth: true
                 }}
                 inputProps={{
+                  onBlur: handleValidation,
                   onChange: handleInputChange('password'),
                   type: "password",
                   endAdornment: (
@@ -96,7 +141,8 @@ export default function SignUpPage(props) {
                 }}
               />
               <CustomInput
-                labelText="Repeat Password"
+                labelText={errors['repeatPassword'] ? ("Nhập lại mật khẩu " + errors['repeatPassword']) : "Nhập lại mật khẩu"}
+                error={errors['repeatPassword']}
                 id="repeatPassword"
                 value={repeatPassword}
 
@@ -104,6 +150,7 @@ export default function SignUpPage(props) {
                   fullWidth: true
                 }}
                 inputProps={{
+                  onBlur: handleValidation,
                   onChange: handleInputChange('repeatPassword'),
                   type: "password",
                   endAdornment: (
@@ -117,7 +164,7 @@ export default function SignUpPage(props) {
               />
             </CardBody>
             <CardFooter className={classes.cardFooter}>
-              <Button simple color="primary" size="lg" type="submit">
+              <Button color="primary" size="lg" type="submit" disabled={isDisableBtn}>
                 Đăng ký
               </Button>
             </CardFooter>

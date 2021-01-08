@@ -19,12 +19,14 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
 import image from "assets/img/bg7.jpg";
+import axiosInstance from "services/api";
 
 const useStyles = makeStyles(styles);
 
 export default function SignInPage(props) {
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
   const [formData, setFormData] = useState({ username: '', password: '' });
+  const [isDisableBtn, setIsDisableBtn] = useState(false);
   const {
     username,
     password
@@ -42,8 +44,21 @@ export default function SignInPage(props) {
   }
 
   const handleSubmit = (event) => {
+    setIsDisableBtn(true);
     event.preventDefault();
     console.log('Email:', username, 'Password: ', password);
+    signIn(username, password)
+  }
+
+  const signIn = (username, password) => {
+    axiosInstance
+      .post(`/sign-in`, { username, password })
+      .then((res) => {
+        const data = res.data;
+        console.log(data)
+
+      })
+      .catch((err) => console.error(err));
   }
 
 
