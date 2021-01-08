@@ -37,7 +37,7 @@ export default function Header(props) {
   const headerColorChange = () => {
     const { color, changeColorOnScroll } = props;
     const windowsScrollTop = window.pageYOffset;
-    if (windowsScrollTop > changeColorOnScroll.height) {
+    if (windowsScrollTop > changeColorOnScroll.height - 200) {
       document.body
         .getElementsByTagName("header")[0]
         .classList.remove(classes[color]);
@@ -71,8 +71,8 @@ export default function Header(props) {
               {leftLinks}
             </Hidden>
           ) : (
-            brandComponent
-          )}
+              brandComponent
+            )}
         </div>
         <Hidden smDown implementation="css">
           {rightLinks}

@@ -25,7 +25,7 @@ import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js
 
 const useStyles = makeStyles(styles);
 
-export default function HeaderLinks(props) {
+export default function HeaderLinks({ isSignIn }) {
   const classes = useStyles();
   return (
     <List className={classes.list}>
@@ -34,7 +34,6 @@ export default function HeaderLinks(props) {
           color="transparent"
           target="_blank"
           className={classes.navLink}
-          style={{ color: "white" }}
         >
           <Link to="/home" className={classes.navLink2} >
             <HomeIcon className={classes.icons} /> TRANG CHỦ
@@ -46,33 +45,61 @@ export default function HeaderLinks(props) {
           color="transparent"
           target="_blank"
           className={classes.navLink}
-          style={{ color: "white" }}
         >
           <Link to="/menu" className={classes.navLink2}>
             <LocalBarIcon className={classes.icons} /> DANH SÁCH THỨC UỐNG
           </Link>
         </Button>
       </ListItem>
-      <ListItem className={classes.listItem}>
-        <CustomDropdown
-          noLiPadding
-          buttonText="NGUYỄN VĂN A"
-          buttonProps={{
-            className: classes.dropdownLink,
-            color: "transparent"
-          }}
-          buttonIcon={AccountCircleIcon}
-          dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
-              Hồ sơ cá nhân
+      {isSignIn ?
+        <ListItem className={classes.listItem}>
+          <CustomDropdown
+            noLiPadding
+            buttonText="NGUYỄN VĂN A"
+            buttonProps={{
+              className: classes.navLink,
+              color: "transparent"
+            }}
+            buttonIcon={AccountCircleIcon}
+            dropdownList={[
+              <Link to="/" className={classes.dropdownLink}>
+                Hồ sơ cá nhân
             </Link>,
-            <Link to="/" className={classes.dropdownLink}>
-              Đăng xuất
+              <Link to="/" className={classes.dropdownLink}>
+                Đăng xuất
             </Link>
 
-          ]}
-        />
-      </ListItem>
+            ]}
+          />
+        </ListItem>
+        :
+        //Not Sign in
+        <>
+          <ListItem className={classes.listItem}>
+            <Button
+              color="transparent"
+              target="_blank"
+              className={classes.navLink}
+            >
+              <Link to="/signin" className={classes.navLink2}>
+                ĐĂNG NHẬP
+          </Link>
+            </Button>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <Button
+              color="transparent"
+              target="_blank"
+              className={classes.navLink}
+            >
+              <Link to="/signup" className={classes.navLink2}>
+                ĐĂNG KÝ
+          </Link>
+            </Button>
+          </ListItem>
+        </>
+
+      }
     </List>
   );
 }

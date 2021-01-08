@@ -1,8 +1,10 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { GuestLayout, StaffLayout } from 'layouts';
-import Home from 'pages/guest/Home';
-import Menu from 'pages/guest/Menu';
+import HomePage from 'pages/guest/HomePage';
+import MenuPage from 'pages/guest/MenuPage';
+import SignInPage from 'pages/auth/SignInPage';
+import SignUpPage from 'pages/auth/SignUpPage';
 
 
 const routes = (isLoggedIn) => [
@@ -10,8 +12,10 @@ const routes = (isLoggedIn) => [
         path: '/',
         element: <GuestLayout />,
         children: [
-            { path: 'home', element: <Home /> },
-            { path: 'menu', element: <Menu /> },
+            { path: 'home', element: <HomePage /> },
+            { path: 'menu', element: <MenuPage /> },
+            { path: 'signin', element: <SignInPage /> },
+            { path: 'signup', element: <SignUpPage /> },
             { path: '/', element: <Navigate to="/home" /> },
         ],
     }

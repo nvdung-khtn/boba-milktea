@@ -17,6 +17,7 @@ import Parallax from "components/Parallax/Parallax.js";
 
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import backgroundImg from "assets/img/landing-bg.jpg"
+import banner from "assets/img/banner.png"
 
 // react router
 import { Outlet } from 'react-router-dom';
@@ -45,7 +46,7 @@ export default function LandingPage(props) {
         }}
         {...rest}
       />
-      <Parallax filter image={backgroundImg}>
+      <Parallax filter image={banner}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
@@ -58,11 +59,7 @@ export default function LandingPage(props) {
           </GridContainer>
         </div>
       </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <div className={classes.container}>
-          <Outlet />
-        </div>
-      </div>
+      <Outlet />
       <Footer />
     </div>
   );
