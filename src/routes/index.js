@@ -13,6 +13,15 @@ import { CUSTOMER, STAFF } from 'configs/static'
 const routes = (userRole) => [
     {
         path: '/',
+        element: <GuestLayout />,
+        children: [
+            { path: 'home', element: <HomePage /> },
+            { path: 'menu', element: <MenuPage /> },
+            { path: '/', element: <Navigate to="/home" /> },
+        ],
+    },
+    {
+        path: '/',
         element: userRole === CUSTOMER ? <GuestLayout /> : <Navigate to="/signin" />,
         children: [
             { path: 'cart', element: <HomePage /> },
@@ -37,14 +46,6 @@ const routes = (userRole) => [
             { path: 'signup', element: <SignUpPage /> },
         ]
     },
-    {
-        path: '/',
-        element: <GuestLayout />,
-        children: [
-            { path: 'home', element: <HomePage /> },
-            { path: 'menu', element: <MenuPage /> },
-            { path: '/', element: <Navigate to="/home" /> },
-        ],
-    }
+
 ];
 export default routes;

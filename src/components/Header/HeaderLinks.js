@@ -62,7 +62,7 @@ function HeaderLinks({ username, userRole, clearUser }) {
             target="_blank"
             className={classes.navLink}
           >
-            <LocalBarIcon className={classes.icons} /> DANH SÁCH THỨC UỐNG
+            <LocalBarIcon className={classes.icons} />THỨC UỐNG
         </Button>
         </Link>
       </ListItem>
@@ -75,7 +75,7 @@ function HeaderLinks({ username, userRole, clearUser }) {
               target="_blank"
               className={classes.navLink}
             >
-              <DescriptionIcon className={classes.icons} /> LỊCH SỬ ĐẶT HÀNG
+              <DescriptionIcon className={classes.icons} /> ĐƠN HÀNG
         </Button>
           </Link>
         </ListItem>
@@ -90,7 +90,7 @@ function HeaderLinks({ username, userRole, clearUser }) {
                 target="_blank"
                 className={classes.navLink}
               >
-                <MonetizationOnIcon className={classes.icons} /> Thống kê doanh thu
+                <MonetizationOnIcon className={classes.icons} /> DOANH THU
               </Button>
             </Link>
           </ListItem>
