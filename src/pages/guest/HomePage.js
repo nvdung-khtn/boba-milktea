@@ -12,7 +12,8 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import InfoArea from "components/InfoArea/InfoArea.js";
-
+import Parallax from "components/Parallax/Parallax.js";
+import banner from "assets/img/banner.png"
 import styles from "assets/jss/material-kit-react/views/landingPageSections/productStyle.js";
 import stylesLayout from "assets/jss/material-kit-react/views/landingPage.js";
 
@@ -23,50 +24,65 @@ export default function HomePage() {
     const classes = useStyles();
     const classesLayout = useStylesLayout();
     return (
-        <div className={classNames(classesLayout.main, classesLayout.mainRaised)}>
-            <div className={classesLayout.container}>
-                <div className={classes.section}>
-                    <GridContainer justify="center">
-                        <GridItem xs={12} sm={12} md={8}>
-                            <h2 className={classes.title}>CHÀO NĂM MỚI 2021</h2>
-                            <h5 className={classes.description}>
-                                Chương trình khuyến mãi cực hot
-                                </h5>
+        <>
+            <Parallax filter image={banner}>
+                <div className={classesLayout.container}>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={6}>
+                            <h1 className={classesLayout.title}>Boba Xin kính chào quý khách</h1>
+                            <h4>
+                                227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM
+                            </h4>
+                            <br />
                         </GridItem>
                     </GridContainer>
-                    <div>
-                        <GridContainer>
-                            <GridItem xs={12} sm={12} md={4}>
-                                <InfoArea
-                                    title="20/01/2021"
-                                    description="Miễn phí Up size với Trà sữa chân châu đường đen"
-                                    icon={PublishIcon}
-                                    iconColor="info"
-                                    vertical
-                                />
-                            </GridItem>
-                            <GridItem xs={12} sm={12} md={4}>
-                                <InfoArea
-                                    title="21/01/2021"
-                                    description="Miễn phí thêm topping cho 1 ly  khi mua 2 ly trà sữa bất kỳ"
-                                    icon={PlusOneIcon}
-                                    iconColor="success"
-                                    vertical
-                                />
-                            </GridItem>
-                            <GridItem xs={12} sm={12} md={4}>
-                                <InfoArea
-                                    title="22/01/2021"
-                                    description="Giảm giá 20% tất cả các thức uống"
-                                    icon={MonetizationOnIcon}
-                                    iconColor="danger"
-                                    vertical
-                                />
+                </div>
+            </Parallax>
+            <div className={classNames(classesLayout.main, classesLayout.mainRaised2)}>
+                <div className={classesLayout.container}>
+                    <div className={classes.section}>
+                        <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={8}>
+                                <h2 className={classes.title}>CHÀO NĂM MỚI 2021</h2>
+                                <h5 className={classes.description}>
+                                    Chương trình khuyến mãi cực hot
+                                </h5>
                             </GridItem>
                         </GridContainer>
+                        <div>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <InfoArea
+                                        title="20/01/2021"
+                                        description="Miễn phí Up size với Trà sữa chân châu đường đen"
+                                        icon={PublishIcon}
+                                        iconColor="info"
+                                        vertical
+                                    />
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <InfoArea
+                                        title="21/01/2021"
+                                        description="Miễn phí thêm topping cho 1 ly  khi mua 2 ly trà sữa bất kỳ"
+                                        icon={PlusOneIcon}
+                                        iconColor="success"
+                                        vertical
+                                    />
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <InfoArea
+                                        title="22/01/2021"
+                                        description="Giảm giá 20% tất cả các thức uống"
+                                        icon={MonetizationOnIcon}
+                                        iconColor="danger"
+                                        vertical
+                                    />
+                                </GridItem>
+                            </GridContainer>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

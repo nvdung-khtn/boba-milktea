@@ -1,5 +1,8 @@
 import axiosInstance from './api'
-const AUTH_TOKEN = localStorage.getItem(token)
-axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${AUTH_TOKEN}`;
+import { isAuthenticated } from 'services/auth'
+const { token } = isAuthenticated();
 
-export default axiosInstanceToken;
+const axiosInstanceToken = axiosInstance;
+axiosInstanceToken.defaults.headers.common['Authorization'] = token;
+
+export default axiosInstanceToken 
