@@ -2,45 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { useRoutes, useNavigate } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import { Provider } from 'react-redux';
-import store from './redux/store';
+
 import axiosInstance from 'services/api';
 import routes from 'routes/index'
 import { BrowserRouter as Router } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { setUser } from 'myRedux/actions/authAction';
+import { isAuthenticated } from 'services/auth'
 
-function App() {
-  const [authTokens, setAuthTokens] = useState();
-  const [userInfo, setUserInfo] = useState(null);
-  const navigate = useNavigate()
+function App(props) {
+  let userRole = undefined;
+  const jwt = isAuthenticated();
 
+  if (jwt) {//check localstorage
+    userRole = jwt.userInfo.role;
+    const { username } = jwt.userInfo
+    props.setUser(username, userRole);
+  }
 
-  const setTokens = (data) => {
-    console.log(`setTokens`, data);
-    if (data) {
-      localStorage.setItem('token', data);
-      setAuthTokens(data);
-      return;
-    }
-  };
+  const routing = useRoutes(routes(userRole));
 
-  const currentTokens = localStorage.getItem('token');
-  console.log('currentToken');
-  if (!authTokens) setTokens(currentTokens);
-  const routing = useRoutes(routes());
-
-  const setUser = (data) => {
-    console.log('setUserInfor', data);
-    if (data) {
-      localStorage.setItem('__user', JSON.stringify(data));
-      setUserInfo(data);
-    }
-  };
   return (
-    <Provider store={store}>
-      {routing}
-    </Provider>
-
+    <>
+      { routing}
+    </>
   );
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setUser: (username, userRole) => dispatch(setUser(username, userRole))
+})
+
+export default connect(null, mapDispatchToProps)(App);

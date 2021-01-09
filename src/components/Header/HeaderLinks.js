@@ -16,46 +16,93 @@ import { Apps, CloudDownload } from "@material-ui/icons";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LocalBarIcon from '@material-ui/icons/LocalBar';
 import HomeIcon from '@material-ui/icons/Home';
+import DescriptionIcon from '@material-ui/icons/Description';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 // core components
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 import Button from "components/CustomButtons/Button.js";
 
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
+import { CUSTOMER, STAFF } from 'configs/static'
+//redux
+import { connect } from 'react-redux'
+import { signout } from 'services/auth'
+import { clearUser } from 'myRedux/actions/authAction'
 
 const useStyles = makeStyles(styles);
 
-export default function HeaderLinks({ isSignIn }) {
+
+function HeaderLinks({ username, userRole, clearUser }) {
   const classes = useStyles();
+
+  const handleSignOut = (e) => {
+    signout(() => {
+      clearUser();
+    })
+  }
+
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
-        <Button
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
-          <Link to="/home" className={classes.navLink2} >
+        <Link to="/home" className={classes.navLink2} >
+          <Button
+            color="transparent"
+            target="_blank"
+            className={classes.navLink}
+          >
             <HomeIcon className={classes.icons} /> TRANG CHỦ
-          </Link>
         </Button>
+        </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
-          <Link to="/menu" className={classes.navLink2}>
+        <Link to="/menu" className={classes.navLink2}>
+          <Button
+            color="transparent"
+            target="_blank"
+            className={classes.navLink}
+          >
             <LocalBarIcon className={classes.icons} /> DANH SÁCH THỨC UỐNG
-          </Link>
         </Button>
+        </Link>
       </ListItem>
-      {isSignIn ?
+
+      {userRole === CUSTOMER ? //is Customer
+        <ListItem className={classes.listItem}>
+          <Link to="/menu" className={classes.navLink2}>
+            <Button
+              color="transparent"
+              target="_blank"
+              className={classes.navLink}
+            >
+              <DescriptionIcon className={classes.icons} /> LỊCH SỬ ĐẶT HÀNG
+        </Button>
+          </Link>
+        </ListItem>
+        : ''
+      }
+      {userRole === STAFF ? // is staff
+        <>
+          <ListItem className={classes.listItem}>
+            <Link to="/" className={classes.navLink2}>
+              <Button
+                color="transparent"
+                target="_blank"
+                className={classes.navLink}
+              >
+                <MonetizationOnIcon className={classes.icons} /> Thống kê doanh thu
+              </Button>
+            </Link>
+          </ListItem>
+        </>
+        : ''
+      }
+
+      {userRole !== undefined ? //Signed
         <ListItem className={classes.listItem}>
           <CustomDropdown
             noLiPadding
-            buttonText="NGUYỄN VĂN A"
+            buttonText={`  ${username}  `}
             buttonProps={{
               className: classes.navLink,
               color: "transparent"
@@ -64,42 +111,52 @@ export default function HeaderLinks({ isSignIn }) {
             dropdownList={[
               <Link to="/" className={classes.dropdownLink}>
                 Hồ sơ cá nhân
-            </Link>,
-              <Link to="/" className={classes.dropdownLink}>
+                  </Link>,
+              <div className={classes.dropdownLink} onClick={handleSignOut}>
                 Đăng xuất
-            </Link>
+              </div>
 
             ]}
           />
         </ListItem>
-        :
-        //Not Sign in
+        : // Not sign in
         <>
           <ListItem className={classes.listItem}>
-            <Button
-              color="transparent"
-              target="_blank"
-              className={classes.navLink}
-            >
-              <Link to="/signin" className={classes.navLink2}>
+            <Link to="/signin" className={classes.navLink2}>
+              <Button
+                color="transparent"
+                target="_blank"
+                className={classes.navLink}
+              >
                 ĐĂNG NHẬP
-          </Link>
-            </Button>
+              </Button>
+            </Link>
           </ListItem>
           <ListItem className={classes.listItem}>
-            <Button
-              color="transparent"
-              target="_blank"
-              className={classes.navLink}
-            >
-              <Link to="/signup" className={classes.navLink2}>
+            <Link to="/signup" className={classes.navLink2}>
+              <Button
+                color="transparent"
+                target="_blank"
+                className={classes.navLink}
+              >
                 ĐĂNG KÝ
-          </Link>
-            </Button>
+              </Button>
+            </Link>
           </ListItem>
-        </>
 
+        </>
       }
+
     </List>
   );
 }
+const mapStateToProps = (state) => ({
+  username: state.auth.username,
+  userRole: state.auth.userRole
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  clearUser: () => dispatch(clearUser())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderLinks)

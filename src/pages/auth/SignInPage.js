@@ -21,11 +21,16 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import Loading from 'components/Loading';
 import image from "assets/img/bg7.jpg";
 import axiosInstance from "services/api";
+import { authenticate } from "services/auth";
+
+//redux
+import { connect } from 'react-redux'
+import { setUser } from 'myRedux/actions/authAction'
 
 
 const useStyles = makeStyles(styles);
 
-export default function SignInPage(props) {
+function SignInPage(props) {
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [isDisableBtn, setIsDisableBtn] = useState(false);
@@ -59,10 +64,14 @@ export default function SignInPage(props) {
     axiosInstance
       .post(`/sign-in`, { email: username, password })
       .then((res) => {
-        const data = res.data;
-        localStorage.setItem(data, res.data)
-        setIsLoading(false);
-        setRedirect(true);
+        authenticate(res.data, () => {
+          console.log(res.data)
+          const { username, role } = res.data.userInfo
+          props.setUser(username, role);//global state
+          setIsLoading(false);
+          setRedirect(true);
+        })
+
       })
       .catch((err) => {
         setIsDisableBtn(false);
@@ -130,3 +139,10 @@ export default function SignInPage(props) {
     </GridContainer>
   );
 }
+
+const mapDispatchToProps = dispatch => ({
+  setUser: (username, userRole) => dispatch(setUser(username, userRole)),
+
+})
+
+export default connect(null, mapDispatchToProps)(SignInPage);
