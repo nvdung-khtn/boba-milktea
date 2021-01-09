@@ -69,7 +69,7 @@ function HeaderLinks({ username, userRole, clearUser }) {
 
       {userRole === CUSTOMER ? //is Customer
         <ListItem className={classes.listItem}>
-          <Link to="/menu" className={classes.navLink2}>
+          <Link to="/history-purchase" className={classes.navLink2}>
             <Button
               color="transparent"
               target="_blank"
