@@ -1,0 +1,47 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-number-container{
+    display: flex;
+    justify-content: center
+}
+
+.input-number-layout{
+    border: 1px solid darkgray;
+    width: 138px;
+    height: 54px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.input-number{
+    color: gray;
+    display: inline-block;
+    width: 52px;
+    height: 42px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    text-align: center;
+}
+
+.plus-sub{
+    color: gray;
+    display: inline-block;
+    height: 42px;
+    width: 42px;
+    cursor: pointer;
+    text-align: center;
+     display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.plus-sub :hover{
+    background-color: bisque;
+}

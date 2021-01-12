@@ -51,6 +51,11 @@ const headerStyle = {
   flex: {
     flex: 1
   },
+
+  titleLink: {
+    textDecoration: "none",
+    color: "inherit",
+  },
   title: {
     ...defaultFont,
     lineHeight: "30px",

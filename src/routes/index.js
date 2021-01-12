@@ -7,6 +7,7 @@ import MenuPage from 'pages/guest/MenuPage';
 import SignInPage from 'pages/auth/SignInPage';
 import SignUpPage from 'pages/auth/SignUpPage';
 import HistoryPurchase from 'pages/customer/HistoryPurchase'
+import CartPage from 'pages/customer/CartPage'
 
 import { CUSTOMER, STAFF } from 'configs/static'
 
@@ -24,7 +25,7 @@ const routes = (userRole) => [
         path: '/',
         element: userRole === CUSTOMER ? <GuestLayout /> : <Navigate to="/signin" />,
         children: [
-            { path: 'cart', element: <HomePage /> },
+            { path: 'cart', element: <CartPage /> },
             { path: 'history-purchase', element: <HistoryPurchase /> },
             { path: 'order', element: <HomePage /> }
         ],

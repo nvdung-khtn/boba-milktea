@@ -18,6 +18,7 @@ import LocalBarIcon from '@material-ui/icons/LocalBar';
 import HomeIcon from '@material-ui/icons/Home';
 import DescriptionIcon from '@material-ui/icons/Description';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 // core components
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
@@ -68,17 +69,30 @@ function HeaderLinks({ username, userRole, clearUser }) {
       </ListItem>
 
       {userRole === CUSTOMER ? //is Customer
-        <ListItem className={classes.listItem}>
-          <Link to="/history-purchase" className={classes.navLink2}>
-            <Button
-              color="transparent"
-              target="_blank"
-              className={classes.navLink}
-            >
-              <DescriptionIcon className={classes.icons} /> ĐƠN HÀNG
+        <>
+          <ListItem className={classes.listItem}>
+            <Link to="/history-purchase" className={classes.navLink2}>
+              <Button
+                color="transparent"
+                target="_blank"
+                className={classes.navLink}
+              >
+                <DescriptionIcon className={classes.icons} /> ĐƠN HÀNG
         </Button>
-          </Link>
-        </ListItem>
+            </Link>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <Link to="/cart" className={classes.navLink2}>
+              <Button
+                color="transparent"
+                target="_blank"
+                className={classes.navLink}
+              >
+                <ShoppingCartIcon className={classes.icons} />
+              </Button>
+            </Link>
+          </ListItem>
+        </>
         : ''
       }
       {userRole === STAFF ? // is staff

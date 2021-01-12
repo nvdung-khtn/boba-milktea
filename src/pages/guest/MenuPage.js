@@ -19,15 +19,19 @@ import stylesLayout from "assets/jss/material-kit-react/views/landingPage.js";
 
 //component
 import Loading from 'components/Loading'
-
+import FormDialog from 'components/FormDialog'
+import Alert from '@material-ui/lab/Alert';
 //helper
 import axiosInstance from 'services/api'
+
+//redux
+import { connect } from 'react-redux'
 
 
 const useStyles = makeStyles(styles);
 const useStylesLayout = makeStyles(stylesLayout);
 
-export default function Menu() {
+function MenuPage({ userRole }) {
   const classes = useStyles();
   const classesLayout = useStylesLayout();
   const imageClasses = classNames(
@@ -38,7 +42,8 @@ export default function Menu() {
   //state
   const [menu, setMenu] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
-
+  const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+  const [selectDrink, setSelectDrink] = useState(null)
 
   useEffect(() => {
     window.scrollTo({ top: 400, behavior: "smooth" })
@@ -52,10 +57,22 @@ export default function Menu() {
       .catch((err) => console.error(err));
   }, [])
 
+  const hanleOpenFromDialog = (drink) => e => {
+    console.log(drink)
+    setIsFormDialogOpen(true);
+    setSelectDrink(drink);
+  }
+
 
   return (
     <div className={classNames(classesLayout.main, classesLayout.mainRaised)}>
       <div className={classesLayout.container}>
+        {isFormDialogOpen ?
+          <FormDialog drink={selectDrink}
+            isFormDialogOpen={isFormDialogOpen}
+            setIsFormDialogOpen={setIsFormDialogOpen}
+          /> : ''
+        }
         <div className={classes.section}>
           <h2 className={classes.title}>Danh sách đồng uống</h2>
           <div>
@@ -78,9 +95,12 @@ export default function Menu() {
                         </p>
                       </CardBody>
                       <CardFooter className={classes.justifyCenter}>
-                        <Button>
-                          Thêm vào giỏ hàng
-                    </Button>
+                        {userRole ?
+                          <Button onClick={hanleOpenFromDialog(drink)}>
+                            Thêm vào giỏ hàng
+                         </Button> :
+                          <div></div>
+                        }
                       </CardFooter>
                     </Card>
                   </GridItem>
@@ -93,3 +113,9 @@ export default function Menu() {
     </div >
   );
 }
+
+const mapStateToProps = (state) => ({
+  userRole: state.auth.userRole
+})
+
+export default connect(mapStateToProps)(MenuPage)

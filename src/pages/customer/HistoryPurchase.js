@@ -85,9 +85,10 @@ function Row({ row }) {
                                             <TableCell>{historyRow.size}</TableCell>
                                             <TableCell >{historyRow.price}</TableCell>
                                             <TableCell >{historyRow.quantity}</TableCell>
-                                            <TableCell >{`${historyRow.topping} (${historyRow.toppingPrice} đ)`}</TableCell>
+                                            <TableCell >{historyRow.topping ? `${historyRow.topping} (${historyRow.toppingPrice} đ)` : ''}</TableCell>
                                             <TableCell align="right">
-                                                {Math.round((historyRow.price * historyRow.quantity + historyRow.toppingPrice) * 100) / 100}
+                                                {Math.round((historyRow.price * historyRow.quantity + historyRow.toppingPrice)
+                                                    * 100) / 100} đ
                                             </TableCell>
                                         </TableRow>
                                     )) : ''}
@@ -136,8 +137,8 @@ export default function CollapsibleTable() {
                 size: detail.drinkPrice.size,
                 price: detail.drinkPrice.price,
                 quantity: detail.quantity,
-                topping: detail.topping.name,
-                toppingPrice: detail.topping.price
+                topping: detail.topping ? detail.topping.name : null,
+                toppingPrice: detail.topping ? detail.topping.price : 0
             })
         });
         return list;
@@ -165,6 +166,7 @@ export default function CollapsibleTable() {
                         <Table aria-label="collapsible table">
                             <TableHead>
                                 <TableRow>
+                                    <TableCell> </TableCell>
                                     <TableCell>Ngày đặt hàng </TableCell>
                                     <TableCell align="right">Tổng thanh toán&nbsp;(VNĐ)</TableCell>
                                 </TableRow>
