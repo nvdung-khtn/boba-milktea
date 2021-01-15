@@ -8,6 +8,7 @@ import SignInPage from 'pages/auth/SignInPage';
 import SignUpPage from 'pages/auth/SignUpPage';
 import HistoryPurchase from 'pages/customer/HistoryPurchase'
 import CartPage from 'pages/customer/CartPage'
+import StaffOrder from 'pages/staff/StaffOrder'
 
 import { CUSTOMER, STAFF } from 'configs/static'
 
@@ -27,15 +28,16 @@ const routes = (userRole) => [
         children: [
             { path: 'cart', element: <CartPage /> },
             { path: 'history-purchase', element: <HistoryPurchase /> },
-            { path: 'order', element: <HomePage /> }
+            { path: 'order', element: <HomePage /> },
+           
         ],
     },
     {
         path: '/',
-        element: userRole === STAFF ? <GuestLayout /> : <Navigate to="/signin" />,
+        element: userRole === STAFF ? <StaffLayout /> : <Navigate to="/signin" />,
         children: [
             { path: 'cart', element: <HomePage /> },
-            { path: 'order', element: <HomePage /> },
+            { path: 'stafforder', element: <StaffOrder /> },
             { path: 'revenue', element: <HomePage /> }
         ],
     },
@@ -46,7 +48,7 @@ const routes = (userRole) => [
             { path: 'signin', element: <SignInPage /> },
             { path: 'signup', element: <SignUpPage /> },
         ]
-    },
+    }
 
 ];
 export default routes;

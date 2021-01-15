@@ -1,0 +1,117 @@
+/*eslint-disable*/
+import React from "react";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+// react components for routing our app without refresh
+import { Link } from "react-router-dom";
+
+// @material-ui/core components
+import { makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Tooltip from "@material-ui/core/Tooltip";
+
+// @material-ui/icons
+import { Apps, CloudDownload } from "@material-ui/icons";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LocalBarIcon from '@material-ui/icons/LocalBar';
+import HomeIcon from '@material-ui/icons/Home';
+import DescriptionIcon from '@material-ui/icons/Description';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
+// core components
+import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
+import Button from "components/CustomButtons/Button.js";
+
+import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
+import { CUSTOMER, STAFF } from 'configs/static'
+//redux
+import { connect } from 'react-redux'
+import { signout } from 'services/auth'
+import { clearUser } from 'myRedux/actions/authAction'
+
+const useStyles = makeStyles(styles);
+
+
+function HeaderLinks({ username, userRole, clearUser }) {
+  const classes = useStyles();
+
+  const handleSignOut = (e) => {
+    signout(() => {
+      clearUser();
+    })
+  }
+
+  return (
+    <List className={classes.list}>
+      <ListItem className={classes.listItem}>
+        <Link to="/home" className={classes.navLink2} >
+          <Button
+            color="transparent"
+            target="_blank"
+            className={classes.navLink}
+          >
+            <HomeIcon className={classes.icons} /> TRANG CHỦ
+        </Button>
+        </Link>
+      </ListItem>
+      
+      <ListItem className={classes.listItem}>
+        <Link to="/stafforder" className={classes.navLink2}>
+          <Button
+            color="transparent"
+            target="_blank"
+            className={classes.navLink}
+          >
+            <LocalBarIcon className={classes.icons} />ĐẶT HÀNG
+        </Button>
+        </Link>
+      </ListItem>
+
+      <ListItem className={classes.listItem}>
+            <Link to="/revenue" className={classes.navLink2}>
+              <Button
+                color="transparent"
+                target="_blank"
+                className={classes.navLink}
+              >
+                <DescriptionIcon className={classes.icons} /> THỐNG KÊ DOANH THU
+        </Button>
+            </Link>
+          </ListItem>
+
+        <ListItem className={classes.listItem}>
+          <CustomDropdown
+            noLiPadding
+            buttonText={`  ${username}  `}
+            buttonProps={{
+              className: classes.navLink,
+              color: "transparent"
+            }}
+            buttonIcon={AccountCircleIcon}
+            dropdownList={[
+              <Link to="/" className={classes.dropdownLink}>
+                Hồ sơ cá nhân
+                  </Link>,
+              <div className={classes.dropdownLink} onClick={handleSignOut}>
+                Đăng xuất
+              </div>
+
+            ]}
+          />
+        </ListItem>    
+
+    </List>
+  );
+}
+const mapStateToProps = (state) => ({
+  username: state.auth.username,
+  userRole: state.auth.userRole
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  clearUser: () => dispatch(clearUser())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderLinks)
