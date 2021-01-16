@@ -97,8 +97,20 @@ function HeaderLinks({ username, userRole, clearUser }) {
       }
       {userRole === STAFF ? // is staff
         <>
+        <ListItem className={classes.listItem}>
+            <Link to="/stafforder" className={classes.navLink2}>
+              <Button
+                color="transparent"
+                target="_blank"
+                className={classes.navLink}
+              >
+                <DescriptionIcon className={classes.icons} /> ĐẶT HÀNG
+              </Button>
+            </Link>
+          </ListItem>
+
           <ListItem className={classes.listItem}>
-            <Link to="/" className={classes.navLink2}>
+            <Link to="/revenue" className={classes.navLink2}>
               <Button
                 color="transparent"
                 target="_blank"
@@ -108,6 +120,7 @@ function HeaderLinks({ username, userRole, clearUser }) {
               </Button>
             </Link>
           </ListItem>
+          
         </>
         : ''
       }

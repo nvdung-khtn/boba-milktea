@@ -29,12 +29,11 @@ const routes = (userRole) => [
             { path: 'cart', element: <CartPage /> },
             { path: 'history-purchase', element: <HistoryPurchase /> },
             { path: 'order', element: <HomePage /> },
-           
         ],
     },
     {
         path: '/',
-        element: userRole === STAFF ? <StaffLayout /> : <Navigate to="/signin" />,
+        element: userRole === STAFF ? <GuestLayout /> : <Navigate to="/signin" />,
         children: [
             { path: 'cart', element: <HomePage /> },
             { path: 'stafforder', element: <StaffOrder /> },

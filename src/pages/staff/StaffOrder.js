@@ -43,7 +43,7 @@ function StaffOrder(props) {
     const handleClickStaffOrder = () =>{
         Swal.fire({
             icon: 'question',
-            title: 'Bạn có muốn xác nhận đơn hàng',
+            title: 'Bạn có muốn xác nhận đơn hàng và in đơn hàng',
             showCancelButton: true,
             cancelButtonText: `Hủy`,
             confirmButtonText: `Xác nhận`,
