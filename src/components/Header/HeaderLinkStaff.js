@@ -56,76 +56,31 @@ function HeaderLinks({ username, userRole, clearUser }) {
         </Button>
         </Link>
       </ListItem>
+      
       <ListItem className={classes.listItem}>
-        <Link to="/menu" className={classes.navLink2}>
+        <Link to="/stafforder" className={classes.navLink2}>
           <Button
             color="transparent"
             target="_blank"
             className={classes.navLink}
           >
-            <LocalBarIcon className={classes.icons} />THỨC UỐNG
+            <LocalBarIcon className={classes.icons} />ĐẶT HÀNG
         </Button>
         </Link>
       </ListItem>
 
-      {userRole === CUSTOMER ? //is Customer
-        <>
-          <ListItem className={classes.listItem}>
-            <Link to="/history-purchase" className={classes.navLink2}>
-              <Button
-                color="transparent"
-                target="_blank"
-                className={classes.navLink}
-              >
-                <DescriptionIcon className={classes.icons} /> ĐƠN HÀNG
-        </Button>
-            </Link>
-          </ListItem>
-          <ListItem className={classes.listItem}>
-            <Link to="/cart" className={classes.navLink2}>
-              <Button
-                color="transparent"
-                target="_blank"
-                className={classes.navLink}
-              >
-                <ShoppingCartIcon className={classes.icons} />
-              </Button>
-            </Link>
-          </ListItem>
-        </>
-        : ''
-      }
-      {userRole === STAFF ? // is staff
-        <>
-        <ListItem className={classes.listItem}>
-            <Link to="/stafforder" className={classes.navLink2}>
-              <Button
-                color="transparent"
-                target="_blank"
-                className={classes.navLink}
-              >
-                <DescriptionIcon className={classes.icons} /> ĐẶT HÀNG
-              </Button>
-            </Link>
-          </ListItem>
-
-          <ListItem className={classes.listItem}>
+      <ListItem className={classes.listItem}>
             <Link to="/revenue" className={classes.navLink2}>
               <Button
                 color="transparent"
                 target="_blank"
                 className={classes.navLink}
               >
-                <MonetizationOnIcon className={classes.icons} /> DOANH THU
-              </Button>
+                <DescriptionIcon className={classes.icons} /> THỐNG KÊ DOANH THU
+        </Button>
             </Link>
           </ListItem>
-          
-        </>
-        : ''
-      }
 
-      {userRole !== undefined ? //Signed
         <ListItem className={classes.listItem}>
           <CustomDropdown
             noLiPadding
@@ -145,34 +100,7 @@ function HeaderLinks({ username, userRole, clearUser }) {
 
             ]}
           />
-        </ListItem>
-        : // Not sign in
-        <>
-          <ListItem className={classes.listItem}>
-            <Link to="/signin" className={classes.navLink2}>
-              <Button
-                color="transparent"
-                target="_blank"
-                className={classes.navLink}
-              >
-                ĐĂNG NHẬP
-              </Button>
-            </Link>
-          </ListItem>
-          <ListItem className={classes.listItem}>
-            <Link to="/signup" className={classes.navLink2}>
-              <Button
-                color="transparent"
-                target="_blank"
-                className={classes.navLink}
-              >
-                ĐĂNG KÝ
-              </Button>
-            </Link>
-          </ListItem>
-
-        </>
-      }
+        </ListItem>    
 
     </List>
   );
