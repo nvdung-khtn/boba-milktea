@@ -20,6 +20,9 @@ import stylesLayout from "assets/jss/material-kit-react/views/landingPage.js";
 import axiosInstanceToken from 'services/apiToken'
 import { formatTime } from 'services/utils'
 import Loading from 'components/Loading'
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import DoneIcon from '@material-ui/icons/Done';
 const useRowStyles = makeStyles({
     root: {
         '& > *': {
@@ -31,11 +34,12 @@ const useRowStyles = makeStyles({
 const useStyles = makeStyles(styles);
 const useStylesLayout = makeStyles(stylesLayout);
 
-function createData(date, total, detail) {
+function createData(date, total, detail,processed) {
     return {
         date,
         total,
-        detail
+        detail,
+        processed
     };
 }
 
@@ -56,7 +60,22 @@ function Row({ row }) {
                 <TableCell component="th" scope="row">
                     {row.date}
                 </TableCell>
-                <TableCell align="right">{row.total}</TableCell>
+                <TableCell align="center" >{row.total}</TableCell>
+                <TableCell align="right" component="th" scope="row">
+                    {row.processed ? 
+                     <Chip
+                        label="Hoàn thành"
+                        clickable
+                        color="primary"
+                        variant="outlined"
+                        />:
+                    <Chip
+                        label="Chưa hoàn thành"
+                        clickable
+                        color="secondary"
+                        variant="outlined"
+                    />}
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -124,8 +143,10 @@ export default function CollapsibleTable() {
         data.forEach(order => {
             rows.push(createData(formatTime(order.creationDate),
                 order.cost,
-                getDetailList(order.orderDetailList)))
-        });
+                getDetailList(order.orderDetailList),
+                order.processed
+                ))});
+                console.log(rows)
         setHistoryPurchase(rows)
     }
 
@@ -138,7 +159,8 @@ export default function CollapsibleTable() {
                 price: detail.drinkPrice.price,
                 quantity: detail.quantity,
                 topping: detail.topping ? detail.topping.name : null,
-                toppingPrice: detail.topping ? detail.topping.price : 0
+                toppingPrice: detail.topping ? detail.topping.price : 0,
+                
             })
         });
         return list;
@@ -163,24 +185,26 @@ export default function CollapsibleTable() {
                 <div className={classes.section}>
                     <h2 className={classes.title}>Lịch sử đặt hàng</h2>
                     <TableContainer component={Paper}>
+                         {isLoading ? <Loading />
+                                :
                         <Table aria-label="collapsible table">
                             <TableHead>
                                 <TableRow>
                                     <TableCell> </TableCell>
                                     <TableCell>Ngày đặt hàng </TableCell>
-                                    <TableCell align="right">Tổng thanh toán&nbsp;(VNĐ)</TableCell>
+                                    <TableCell  align="center">Tổng thanh toán&nbsp;(VNĐ)</TableCell>
+                                    <TableCell  align="right" component="th" scope="row">
+                                        Trạng thái
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
-
-                            {isLoading ? <Loading />
-                                :
-                                <TableBody>
-                                    {historyPurchase.map((row) => (
-                                        <Row key={row.date} row={row} />
-                                    ))}
-                                </TableBody>
-                            }
+                            <TableBody>
+                                {historyPurchase.map((row) => (
+                                    <Row key={row.date} row={row} />
+                                ))}
+                            </TableBody>
                         </Table>
+                            }
                     </TableContainer>
                 </div>
             </div>
