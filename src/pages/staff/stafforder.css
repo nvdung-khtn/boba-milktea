@@ -1,121 +1,119 @@
-p{
-    padding: 0;
-    margin: 0;
+p {
+  padding: 0;
+  margin: 0;
 }
 
-.content{
-    margin-top: 90px;
-    margin-bottom: 2rem;
-    padding: 10px;
+.content {
+  margin-top: 90px;
+  margin-bottom: 2rem;
+  padding: 10px;
 }
-.cont-left{
-    margin-left: 20px;
-}
-
-.text-center{
-    text-align: center;
+.cont-left {
+  margin-left: 20px;
 }
 
-.title-order{
-    color: #777;
-    font-style: italic;
-    font-weight: bold;
+.text-center {
+  text-align: center;
 }
 
-.product{
-    border: 1px solid #dedede;
-    border-radius: 3px;
-    padding: 20px;
-    margin-top: 25px;
+.title-order {
+  color: #777;
+  font-style: italic;
+  font-weight: bold;
 }
 
-.name-product{
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 14px;
-    font-weight: 500;
+.product {
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  padding: 20px;
+  margin-top: 25px;
 }
 
-.img-product{
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-
+.name-product {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.cont-image{
-    display: flex;
-    justify-content: center;
+.img-product {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
 
-.button-click{
-    width: 100%;
-    padding: 10px 30px;
-    background-color: #999999;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    transition: .3s;
-    border-radius: 5px;
-    margin-top: 7px;
+.cont-image {
+  display: flex;
+  justify-content: center;
 }
 
-.button-click:hover{
-    background-color: #777;
+.button-click {
+  width: 100%;
+  padding: 10px 30px;
+  background-color: #999999;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 5px;
+  margin-top: 7px;
 }
 
-.button-click:focus {outline:0;}
+.button-click:hover {
+  background-color: #777;
+}
 
+.button-click:focus {
+  outline: 0;
+}
 
 /** CSS Đơn đặt hàng */
-.order-right{
-    font-size: 17px;
-    font-weight: bold;
-    margin-bottom: 15px !important;
-    color: #555;
+.order-right {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 15px !important;
+  color: #555;
 }
 
-.cont-right{
-    padding: 15px;
-    border: solid 1px #dedede;
-    border-radius: 5px;
-    margin-top: 25px;
+.cont-right {
+  padding: 15px;
+  border: solid 1px #dedede;
+  border-radius: 5px;
+  margin-top: 25px;
 }
 
-.tb-order{
-    width: 100%;
+.tb-order {
+  width: 100%;
 }
 
-.div-order{
-    display: flex;
-    justify-content: space-between;
+.div-order {
+  display: flex;
+  justify-content: space-between;
 }
 
-.price-order{
-    font-size: 14px;
-    margin-right: 10px;
-    margin-bottom: 3px;
-
+.price-order {
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 3px;
 }
 
-.name-order{
-    font-size: 14px;
-    font-style: italic;
-    margin-left: 10px;
-    margin-bottom: 3px;
+.name-order {
+  font-size: 14px;
+  font-style: italic;
+  margin-left: 10px;
+  margin-bottom: 3px;
 }
 
-.price-total{
-    font-size: 15px;
-    margin-right: 10px;
-    margin-bottom: 3px;
-    font-weight: bold;
+.price-total {
+  font-size: 15px;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  font-weight: bold;
 }
 
-.name-total{
-    font-size: 14px;
-    font-style: italic;
-    margin-left: 10px;
-    margin-bottom: 3px;
-
+.name-total {
+  font-size: 14px;
+  font-style: italic;
+  margin-left: 10px;
+  margin-bottom: 3px;
 }

@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
     screen: {
-        dispaly: "flex",
+        display: "flex !important",
         width: "100% !important",
         justifyContent: "center"
     }

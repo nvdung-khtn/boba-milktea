@@ -115,23 +115,16 @@ function StaffOrder(props) {
                             <hr></hr>
                             }
                             
-                            
-                            
-                            {listStaffOrder.length === 0 ? 
-                                ''
-                            :
+                                <>
                                 <div className="div-order">
                                     <span className="name-total">Tổng cộng: </span>
                                     <span className="price-total">{totalMoney}</span>
                                 </div>
-                            }
-                                
-                            {listStaffOrder.length === 0 ? 
-                                ''
-                            :
-                                <button className="button-click" onClick={handleClickStaffOrder}>XÁC NHẬN ĐẶT HÀNG</button>
-                            }
-                            
+                                 <button 
+                                 disabled={listStaffOrder.length === 0}
+                                 className="button-click" 
+                                 onClick={handleClickStaffOrder}>XÁC NHẬN ĐẶT HÀNG</button>
+                                </>
                          </div>
                     </GridItem>
             </GridContainer>
